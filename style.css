@@ -1,7 +1,27 @@
 /* initialize CSS  */
 * {
+  font-family: "NanumBarunGothic";
   margin: 0;
   padding: 0;
+}
+
+/* header */
+#header {
+  display: flex;
+  height: 48px;
+  padding: 0 8px;
+  margin: 4px 0;
+  border: 1px solid black;
+  align-items: center;
+}
+
+#header > img {
+  padding: 0 4px;
+}
+
+#header > a {
+  text-decoration: none;
+  margin: 0 4px;
 }
 
 .container {

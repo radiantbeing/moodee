@@ -1,8 +1,3 @@
-/* 1st color: 85586F
-2nd color: AC7D88
-3rd color: DEB6AB
-4th color: F8ECD1 */
-
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
 :root {
@@ -23,7 +18,7 @@ body {
 /* Layout */
 /* 모바일 우선 */
 .container {
-  margin: 0px auto;
+  margin: 20px auto;
   padding: 20px;
   border: 1px solid var(--temp-border-color);
 }
@@ -51,18 +46,18 @@ body {
   border: 1px solid var(--temp-border-color);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 940px) {
   .container {
     width: 940px;
   }
 
   #left {
-    width: 580px;
+    width: 260px;
     float: left;
   }
 
   #right {
-    width: 260px;
+    width: 580px;
     float: right;
   }
 
@@ -78,7 +73,7 @@ body {
   padding: 8px 20px;
   background-color: var(--first-bg-color);
   position: relative;
-  margin-bottom: 20px;
+  box-shadow: 1px 1px 1px var(--first-bg-color);
 }
 
 #nav_logo {
@@ -94,11 +89,13 @@ body {
 }
 
 #nav_menu {
+  display: none;
+  flex-direction: column;
   padding-left: 0;
 }
 
 #nav_menu.active {
-  display: none;
+  display: flex;
 }
 
 #nav_menu > li {
@@ -118,12 +115,23 @@ body {
 }
 
 #nav_links {
+  display: none;
   text-align: center;
+  padding-left: 0;
 }
 
-#nav_links > a {
+#nav_links.active {
+  display: block;
+}
+
+#nav_links > li {
+  list-style-type: none;
+}
+
+#nav_links > li > a {
   text-decoration: none;
   color: black;
+  font-size: 20px;
 }
 
 #nav_toggle {
@@ -134,7 +142,7 @@ body {
   color: black;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 940px) {
   #nav {
     flex-direction: row;
     align-items: center;
@@ -143,9 +151,37 @@ body {
 
   #nav_menu {
     display: flex;
+    flex-direction: row;
+  }
+
+  #nav_links {
+    display: block;
   }
 
   #nav_toggle {
     display: none;
   }
+}
+
+/* Carousel */
+.carousel {
+  border: 1px solid var(--temp-border-color);
+}
+
+.carousel_img {
+  width: 100%;
+}
+
+@keyframes carousel_progress_bar_animation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.carousel_progress_bar {
+  background-color: var(--second-bg-color);
+  height: 8px;
+  border-radius: 8px;
 }

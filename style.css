@@ -5,116 +5,147 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
-/* initialize CSS  */
+:root {
+  --first-bg-color: #85586f;
+  --second-bg-color: #ac7d88;
+  --third-bg-color: #deb6ab;
+  --fourth-bg-color: #f8ecd1;
+  --temp-border-color: #bcbcbc;
+}
+
 body {
   font-family: "Noto Sans KR", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f8ecd1;
+  background-color: var(--fourth-bg-color);
 }
 
-/* header */
+/* Layout */
+/* 모바일 우선 */
+.container {
+  margin: 0px auto;
+  padding: 20px;
+  border: 1px solid var(--temp-border-color);
+}
+
+#top {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--temp-border-color);
+}
+
+#left {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--temp-border-color);
+}
+
+#right {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--temp-border-color);
+}
+
+#bottom {
+  padding: 20px;
+  border: 1px solid var(--temp-border-color);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 940px;
+  }
+
+  #left {
+    width: 580px;
+    float: left;
+  }
+
+  #right {
+    width: 260px;
+    float: right;
+  }
+
+  #bottom {
+    clear: both;
+  }
+}
+
+/* Navigation */
 #nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #85586f;
-  padding: 8px 12px;
-  box-shadow: 2px 2px 2px grey;
-  margin-bottom: 8px;
-}
-
-#nav a {
-  text-decoration: none;
-  color: black;
+  flex-direction: column;
+  padding: 8px 20px;
+  background-color: var(--first-bg-color);
+  position: relative;
+  margin-bottom: 20px;
 }
 
 #nav_logo {
   display: flex;
   align-items: center;
   font-size: 24px;
-  color: black;
 }
 
 #nav_logo > a {
+  text-decoration: none;
+  color: black;
   margin: 0 16px;
 }
 
 #nav_menu {
-  display: flex;
-  list-style-type: none;
   padding-left: 0;
 }
 
-#nav_menu li {
+#nav_menu.active {
+  display: none;
+}
+
+#nav_menu > li {
+  text-align: center;
+  list-style-type: none;
   padding: 8px 12px;
 }
 
-#nav_menu li:hover {
-  background-color: #ac7d88;
+#nav_menu > li:hover {
+  background-color: var(--second-bg-color);
   border-radius: 4px;
 }
 
-#nav_toggle_btn {
-  display: none;
-  position: absolute;
-  top: 16px;
-  right: 32px;
+#nav_menu > li > a {
+  text-decoration: none;
+  color: black;
 }
 
-@media screen and (max-width: 769px) {
+#nav_links {
+  text-align: center;
+}
+
+#nav_links > a {
+  text-decoration: none;
+  color: black;
+}
+
+#nav_toggle {
+  text-decoration: none;
+  font-size: 24px;
+  position: absolute;
+  right: 20px;
+  color: black;
+}
+
+@media screen and (min-width: 768px) {
   #nav {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 24px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
   }
 
   #nav_menu {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  #nav_menu li {
-    width: 100%;
-    text-align: center;
-  }
-
-  #nav_toggle_btn {
-    display: block;
-  }
-
-  #nav_menu.active {
     display: flex;
   }
-}
 
-.container {
-  width: 960px;
-  margin: 0 auto;
-}
-
-#top {
-  background-color: red;
-}
-
-#middle {
-  overflow: hidden;
-}
-
-#middle-left {
-  width: 320px;
-  float: left;
-  background-color: green;
-}
-
-#middle-right {
-  width: 640px;
-  float: right;
-  background-color: yellow;
-}
-
-#bottom {
-  background-color: blue;
+  #nav_toggle {
+    display: none;
+  }
 }

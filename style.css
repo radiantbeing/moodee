@@ -67,6 +67,15 @@ body {
 }
 
 /* Navigation */
+@keyframes nav_menu_open {
+  0% {
+    margin-top: -160px;
+  }
+  100% {
+    margin-top: 16px;
+  }
+}
+
 #nav {
   display: flex;
   flex-direction: column;
@@ -96,6 +105,8 @@ body {
 
 #nav_menu.active {
   display: flex;
+  animation-name: nav_menu_open;
+  animation-duration: 1s;
 }
 
 #nav_menu > li {

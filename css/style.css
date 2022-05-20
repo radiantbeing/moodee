@@ -69,7 +69,7 @@ body {
 /* Navigation */
 @keyframes nav_menu_open {
   0% {
-    margin-top: -160px;
+    margin-top: -237px;
   }
   100% {
     margin-top: 16px;
@@ -106,7 +106,7 @@ body {
 #nav_menu.active {
   display: flex;
   animation-name: nav_menu_open;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
 }
 
 #nav_menu > li {
@@ -195,4 +195,17 @@ body {
   background-color: var(--second-bg-color);
   height: 8px;
   border-radius: 8px;
+}
+
+/* Shuffle */
+#player {
+  display: block;
+  width: 100%;
+  height: 50%;
+  margin: 0 auto;
+}
+
+#shuffle_genre {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }

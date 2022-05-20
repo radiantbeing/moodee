@@ -5,13 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="일상을 소리로 물들이다." />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <!-- favicon -->
-    <link rel="icon" href="logo.svg" />
-    <link rel="mask-icon" href="logo.svg" color="#000000" />
-    <link rel="apple-touch-icon" href="logo.svg" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://kit.fontawesome.com/7ca5696135.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="imgs/logo.svg" />
+    <link rel="mask-icon" href="imgs/logo.svg" color="#000000" />
+    <link rel="apple-touch-icon" href="imgs/logo.svg" />
+    <link rel="stylesheet" href="css/style.css" />
+
     <title>MOODEE</title>
   </head>
   <body>
@@ -33,11 +32,11 @@
       </ul>
       <a href="#" id="nav_toggle"><i class="fa-solid fa-bars"></i></a>
     </nav>
-
     <section>
       <div class="container">
         <div id="top">
           <h1>Welcome to MOODEE</h1>
+          MOODEE에서 당신의 일상을 즐거움으로 채우세요!
           <div class="carousel">
             <img class="carousel_img" src="imgs/1.png" alt="carousel image" />
             <div class="carousel_progress_bar"></div>
@@ -48,15 +47,26 @@
         </div>
         <div id="left">
           <h1>Shuffle!</h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem voluptates corrupti temporibus! Incidunt, amet corporis.
-          Nisi, officia repudiandae magni perferendis explicabo et consequuntur cum dolores, sint accusantium dolorum, vel harum!
+          뭘 들을지 찾기도 귀찮다구요? 바로 Shuffle하세요!
+          <div id="shuffle_genre">
+            <label for="shuffle_selector">장르</label>
+            <select name="genre" id="shuffle_selector">
+              <option value="lofi">lofi</option>
+              <option value="공부">공부</option>
+              <option value="재즈">재즈</option>
+              <option value="슬픔">슬픔</option>
+              <option value="집중">집중</option>
+              <option value="새벽">새벽</option>
+              <option value="신남">신남</option>
+            </select>
+          </div>
+          <div id="player"></div>
         </div>
         <div id="right">
-          <h1>Notice</h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus blanditiis possimus beatae dicta commodi
-          consectetur hic molestias, laborum aperiam perspiciatis asperiores? Sapiente rerum perferendis id cum deserunt ut quas!
+          <h1>Recommend</h1>
+          난 오늘 ~해 consectetur adipisicing elit. Modi temporibus blanditiis possimus beatae dicta commodi consectetur hic
+          molestias, laborum aperiam perspiciatis asperiores? Sapiente rerum perferendis id cum deserunt ut quas!
         </div>
-
         <div id="bottom">
           <h1>Bottom</h1>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, adipisci modi, labore eum mollitia magnam dignissimos
@@ -64,7 +74,10 @@
         </div>
       </div>
     </section>
-
-    <script src="app.js"></script>
+    <!-- <footer>일상을 소리로 물들이다 MOODEE</footer> -->
+    <script src="js/app.js"></script>
+    <script src="https://kit.fontawesome.com/7ca5696135.js" crossorigin="anonymous"></script>
+    <!-- addblock 등을 사용할 경우 console에서 오류 메세지를 볼 수도 있음 -->
+    <script src="https://www.youtube.com/iframe_api"></script>
   </body>
 </html>

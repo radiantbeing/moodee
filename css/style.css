@@ -199,13 +199,44 @@ body {
 
 /* Shuffle */
 #player {
-  display: block;
+  /* display: none; */
   width: 100%;
   height: 50%;
   margin: 0 auto;
 }
 
+#shuffle_player a {
+  color: black;
+}
+
 #shuffle_genre {
   margin-top: 8px;
   margin-bottom: 8px;
+}
+
+#volControlBox {
+  width: 200px;
+  height: 150px;
+  padding: 16px;
+  margin-left: -100px;
+  margin-top: -75px;
+  border-radius: 16px;
+  background-color: rgba(188, 188, 188, 0.7);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+}
+
+#volControlBox i {
+  margin: 35px 0;
+  font-size: 48px;
+}
+
+#volControlBox div {
+  max-width: 150px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0 auto;
+  background-color: black;
 }

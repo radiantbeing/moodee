@@ -1,11 +1,11 @@
-<!-- TODO: 공부 모드 timer -->
+<!-- TODO: 공부 모드 timer, ipod shuffle 형태로 플레이어 변경 -->
+<!-- FIXME: 볼륨 조정 버그 수정-->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="일상을 소리로 물들이다." />
-    <!-- favicon -->
     <link rel="icon" href="imgs/logo.svg" />
     <link rel="mask-icon" href="imgs/logo.svg" color="#000000" />
     <link rel="apple-touch-icon" href="imgs/logo.svg" />
@@ -17,10 +17,10 @@
     <nav id="nav">
       <div id="nav_logo">
         <i class="fa-solid fa-podcast"></i>
-        <a href="#">MOODEE</a>
+        <a href="/">MOODEE</a>
       </div>
       <ul id="nav_menu">
-        <li><a href="#">홈</a></li>
+        <li><a href="/">홈</a></li>
         <li><a href="#">음악</a></li>
         <li><a href="#">음향기기</a></li>
         <li><a href="#">About</a></li>
@@ -36,7 +36,7 @@
       <div class="container">
         <div id="top">
           <h1>Welcome to MOODEE</h1>
-          MOODEE에서 당신의 일상을 즐거움으로 채우세요!
+          MOODEE에서 당신의 일상을 음악과 함께 하세요!
           <div class="carousel">
             <img class="carousel_img" src="imgs/1.png" alt="carousel image" />
             <div class="carousel_progress_bar"></div>
@@ -47,37 +47,52 @@
         </div>
         <div id="left">
           <h1>Shuffle!</h1>
-          뭘 들을지 찾기도 귀찮다구요? 바로 Shuffle하세요!
-          <div id="shuffle_genre">
-            <label for="shuffle_selector">장르</label>
-            <select name="genre" id="shuffle_selector">
-              <option value="lofi">lofi</option>
-              <option value="공부">공부</option>
-              <option value="재즈">재즈</option>
-              <option value="슬픔">슬픔</option>
-              <option value="집중">집중</option>
-              <option value="새벽">새벽</option>
-              <option value="신남">신남</option>
-            </select>
+          뭘 들을지 찾기도 귀찮다구요? <br />바로 Shuffle하세요!
+
+          <div id="shuffle_player">
+            <div id="shuffle_genre">
+              <label for="shuffle_selector">장르</label>
+              <select name="genre" id="shuffle_selector">
+                <option value="lofi">lofi</option>
+                <option value="공부">공부</option>
+                <option value="재즈">재즈</option>
+                <option value="슬픔">슬픔</option>
+                <option value="집중">집중</option>
+                <option value="새벽">새벽</option>
+                <option value="신남">신남</option>
+                <option value="안정">안정</option>
+              </select>
+            </div>
+            <!-- Hidden YouTube Player -->
+            <div id="player"></div>
+            <!-- Music info -->
+            <div id="shuffle_title">재생 버튼을 누르세요</div>
+            <!-- YTplayer controllers -->
+            <a href="#" id="shuffle_vol_down"><i class="fa-solid fa-minus"></i></a>
+            <a href="#" id="shuffle_prev"><i class="fa-solid fa-backward-fast"></i></a>
+            <a href="#" id="shuffle_play"><i class="fa-solid fa-play"></i></a>
+            <a href="#" id="shuffle_next"><i class="fa-solid fa-forward-fast"></i></a>
+            <a href="#" id="shuffle_vol_up"><i class="fa-solid fa-plus"></i></a>
           </div>
-          <div id="player"></div>
         </div>
         <div id="right">
-          <h1>Recommend</h1>
+          <h1>Playlists!</h1>
           난 오늘 ~해 consectetur adipisicing elit. Modi temporibus blanditiis possimus beatae dicta commodi consectetur hic
           molestias, laborum aperiam perspiciatis asperiores? Sapiente rerum perferendis id cum deserunt ut quas!
         </div>
         <div id="bottom">
-          <h1>Bottom</h1>
+          <h1>저 구경하고 가실래요?</h1>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, adipisci modi, labore eum mollitia magnam dignissimos
           tempore totam vel enim, et quae atque ut quaerat sunt laudantium ad neque quia?
         </div>
       </div>
     </section>
-    <!-- <footer>일상을 소리로 물들이다 MOODEE</footer> -->
-    <script src="js/app.js"></script>
+
+    <!-- FontAwesome API -->
     <script src="https://kit.fontawesome.com/7ca5696135.js" crossorigin="anonymous"></script>
-    <!-- addblock 등을 사용할 경우 console에서 오류 메세지를 볼 수도 있음 -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Personal APIs -->
+    <script src="js/menu_toggle.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/shuffle.js"></script>
   </body>
 </html>

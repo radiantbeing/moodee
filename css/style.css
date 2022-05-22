@@ -205,17 +205,40 @@ body {
   margin: 0 auto;
 }
 
-#shuffle_player a {
+#playlist_selector_wrapper {
+  margin: 8px 0;
+}
+#playing_title {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#controllers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+}
+
+#controllers a {
+  font-size: 24px;
   color: black;
 }
 
-#shuffle_genre {
-  margin-top: 8px;
-  margin-bottom: 8px;
+#controllers a:nth-child(3) {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 40px;
+  border: 1px solid black;
 }
 
-#volControlBox {
-  width: 200px;
+#volBox {
+  width: 180px;
   height: 150px;
   padding: 16px;
   margin-left: -100px;
@@ -228,12 +251,12 @@ body {
   text-align: center;
 }
 
-#volControlBox i {
+#volBox i {
   margin: 35px 0;
   font-size: 48px;
 }
 
-#volControlBox div {
+#volBox div {
   max-width: 150px;
   height: 8px;
   border-radius: 4px;

@@ -1,89 +1,36 @@
-// https://developers.google.com/youtube/iframe_api_reference?hl=ko#Playback_controls
+// https://developers.google.com/youtube/iframe_api_reference?hl=ko
 
-// 0. Youtube iframe player API를 로드.
-let tag = document.createElement("script");
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName("script")[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+/*
+플레이어는 <div id="player"></div>에,
+컨트롤러는 <div id="controllers"></div>에 생성
+컨트롤러 아이콘은 fontawesome에 의존성 가지고 있음
+*/
 
-// 1. playlists 객체 생성
-// 키는 장르명, 속성은 YouTube Video ID의 배열에 해당한다.
-const playlists = {
-  lofi: ["lCOiahfnNIw", "y_WPhHHvzus"],
-  공부: ["pBRZzsO3L3o", "Cx_dXJn1BwE"],
-};
-
-// 2. 전역변수 선언
-// playlist 변수는 playlists 객체에서 선택된 특정 배열
-// currentOrder는 playlist에서 재생하고 있는 요소의 인덱스
-let playlist = null;
-let currentOrder = null;
-
-// 3. genreSelector에 이벤트 리스너 설정
-// 장르를 바꾸면 플레이어 초기화
-const genreSelector = document.querySelector("#shuffle_selector");
-genreSelector.addEventListener("change", (event) => {
-  const genre = document.querySelector("#shuffle_selector").value;
-  playlist = playlists[genre];
-  currentOrder = 0;
-  removePlayer();
-  createPlayer();
-  initController();
-});
-
-function removePlayer() {
-  player.stopVideo();
-  player.destroy();
-  player = null;
+/**
+ * YoutubeAPI를 적재함
+ */
+function loadYoutubeAPI() {
+  let tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  let firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function initController() {
-  const puaseBtn = document.querySelector("#shuffle_pause");
-  if (puaseBtn != undefined) {
-    const pauseBtn = document.getElementById("shuffle_pause");
-    const playBtn = createControlBtn("shuffle_play", "fa-solid fa-play");
-    playBtn.addEventListener("click", clickPlayBtnEvent);
-    pauseBtn.parentNode.replaceChild(playBtn, pauseBtn);
-  }
-}
-
-// 4. 플레이어 컨트롤러 이벤트 리스너 설정
-document.querySelector("#shuffle_play").addEventListener("click", (event) => {
-  event.preventDefault();
-  clickPlayBtnEvent();
-});
-document.querySelector("#shuffle_next").addEventListener("click", (event) => {
-  event.preventDefault();
-  currentOrder++;
-  if (currentOrder >= playlist.length) currentOrder = 0;
-  player.loadVideoById(playlist[currentOrder], 0);
-});
-document.querySelector("#shuffle_prev").addEventListener("click", (event) => {
-  event.preventDefault();
-  currentOrder--;
-  if (currentOrder < 0) currentOrder = playlist.length - 1;
-  player.loadVideoById(playlist[currentOrder], 0);
-});
-document.querySelector("#shuffle_vol_up").addEventListener("click", (event) => {
-  event.preventDefault();
-  volumeControl(event);
-});
-document.querySelector("#shuffle_vol_down").addEventListener("click", (event) => {
-  event.preventDefault();
-  volumeControl(event);
-});
-
-// 5. YouTube iframe player API의 로드가 완료되면 플레이어 객체 생성
-let player;
+var player;
+/**
+ * YoutubeAPI 적재가 완료되면 player 객체를 생성
+ */
 function onYouTubeIframeAPIReady() {
-  const genre = document.querySelector("#shuffle_selector").value;
-  playlist = playlists[genre];
-  currentOrder = 0;
   createPlayer();
 }
 
-function createPlayer() {
-  // YouTube Player 객체 생성
+/**
+ * player 객체 생성
+ */
+async function createPlayer() {
+  const theme = document.querySelector("#playlist_selector").value;
+  const playlist = await getPlaylist(theme, "db/shuffle_playlists.json");
+
   player = new YT.Player("player", {
     height: "360",
     width: "640",
@@ -94,88 +41,206 @@ function createPlayer() {
       onStateChange: onPlayerStateChange,
     },
   });
-}
 
-// 6. player가 준비되면 아래의 명령을 실행
-function onPlayerReady() {
-  player.setVolume(30); // 기본 볼륨을 30%로 설정
-}
+  // player 객체 자체에 playlist를 추가
+  player.playlist = playlist;
+  // playlist에서 현재 재생 중인 요소의 index
+  player.playingOrder = 0;
 
-// 7. player의 state가 변경되면 아래 명령을 실행
-function onPlayerStateChange(event) {
-  showTitle();
-  if (event.data == YT.PlayerState.ENDED) {
-    currentOrder++;
-    if (currentOrder >= playlist.length) currentOrder = 0;
-    player.loadVideoById(playlist[currentOrder], 0);
+  // 제목 표시란 초기화
+  initTitle();
+
+  function onPlayerReady(event) {
+    event.target.setVolume(30);
+    createControllers();
   }
-  if (event.data == YT.PlayerState.PLAYING && document.querySelector("#shuffle_pause") == undefined) {
-    clickPlayBtnEvent();
+
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+      playHandler();
+    }
+    if (event.data == YT.PlayerState.PAUSED) {
+      pauseHandler();
+    }
+    if (event.data == YT.PlayerState.ENDED) {
+      playNextHandler();
+    }
   }
-  if (event.data == YT.PlayerState.PAUSED && document.querySelector("#shuffle_play") == undefined) {
-    clickPauseBtnEvent();
+}
+
+/**
+ * player 객체 제거
+ */
+function destroyPlayer() {
+  player.stopVideo();
+  player.destroy();
+  player = null;
+  destroyControllers();
+}
+
+/**
+ * musicDB에 있는 모든 playlist를 객체로 반환
+ * @param {string} musicDB
+ * @returns Object of all playlists
+ */
+async function getPlaylistsAll(musicDB) {
+  const res = await fetch(musicDB);
+  const data = await res.json();
+  return data;
+}
+
+/**
+ * 음악 주제에 따른 Playlist를 반환
+ *
+ * @param {string} theme Playlist의 주제 또는 장르
+ * @param {string} musicDB 음악 DB의 경로
+ * @returns playlist 배열
+ */
+async function getPlaylist(theme, musicDB) {
+  const allPlaylists = await getPlaylistsAll(musicDB);
+  const playlist = allPlaylists[theme];
+  return playlist;
+}
+
+/**
+ * <div id="controllers"></div> 영역에 컨트롤러 생성
+ */
+function createControllers() {
+  const playBtn = `<a href="#"><i class="fa-solid fa-play"></i></a>`;
+  const prevBtn = `<a href="#"><i class="fa-solid fa-backward-fast"></i></a>`;
+  const nextBtn = `<a href="#"><i class="fa-solid fa-forward-fast"></i></a>`;
+  const volDownBtn = `<a href="#"><i class="fa-solid fa-minus"></i></a>`;
+  const volUpBtn = `<a href="#"><i class="fa-solid fa-plus"></i></a>`;
+  const controllers = [volDownBtn, prevBtn, playBtn, nextBtn, volUpBtn];
+
+  const controlArea = document.getElementById("controllers");
+  for (let i = 0; i < controllers.length; i++) {
+    controlArea.innerHTML += controllers[i];
   }
+
+  // controlComponents = [volDownBtn, prevBtn, playBtn, nextBtn, volUpBtn]
+  const controlComponents = getControllers();
+  controlComponents[0].addEventListener("click", (event) => {
+    event.preventDefault();
+    volumeDownHandler();
+  });
+  controlComponents[1].addEventListener("click", (event) => {
+    event.preventDefault();
+    playPrevHandler();
+  });
+  controlComponents[2].addEventListener("click", (event) => {
+    event.preventDefault();
+    player.playVideo();
+  });
+  controlComponents[3].addEventListener("click", (event) => {
+    event.preventDefault();
+    playNextHandler();
+  });
+  controlComponents[4].addEventListener("click", (event) => {
+    event.preventDefault();
+    volumeUpHandler();
+  });
 }
 
-// 재생 중인 동영상 정보를 확인하여 제목을 컨트롤러에 표시
-function showTitle() {
-  const title = document.querySelector("#shuffle_title");
-  title.innerText = player.getVideoData().title;
+/**
+ * <div id="controllers"></div> 영역에 생성된 컨트롤러를 삭제
+ */
+function destroyControllers() {
+  const controlArea = document.querySelector("#controllers");
+  controlArea.innerHTML = "";
 }
 
-function clickPlayBtnEvent() {
-  const playBtn = document.getElementById("shuffle_play");
-  const pauseBtn = createControlBtn("shuffle_pause", "fa-solid fa-pause");
-  pauseBtn.addEventListener("click", clickPauseBtnEvent);
-  playBtn.parentNode.replaceChild(pauseBtn, playBtn);
-  player.playVideo();
+/**
+ * <div id="controllers"></div>의 자식요소인 컨트롤러 요소들을 배열로 반환
+ * @returns controllers 배열
+ */
+function getControllers() {
+  const controlArea = document.getElementById("controllers");
+  const controllers = new Array();
+  controlArea.childNodes.forEach((element) => controllers.push(element));
+  return controllers;
 }
 
-function clickPauseBtnEvent() {
-  const pauseBtn = document.getElementById("shuffle_pause");
-  const playBtn = createControlBtn("shuffle_play", "fa-solid fa-play");
-  playBtn.addEventListener("click", clickPlayBtnEvent);
-  pauseBtn.parentNode.replaceChild(playBtn, pauseBtn);
-  player.pauseVideo();
+/**
+ * 음악을 Play할 때 발생
+ *
+ */
+function playHandler() {
+  console.log("Excuted:", "playHandler");
+  // Play에서 Pause로 버튼 교체
+  const playBtn = getControllers()[2];
+  const new_pauseBtn = document.createElement("a");
+  new_pauseBtn.href = "#";
+  new_pauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  new_pauseBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    player.pauseVideo();
+  });
+  playBtn.parentNode.replaceChild(new_pauseBtn, playBtn);
+
+  displayTitle();
 }
 
-function createControlBtn(anchorID, iconClass) {
-  const controller = document.createElement("a");
-  controller.setAttribute("href", "#");
-  controller.setAttribute("id", anchorID);
-  const innerTag = document.createElement("i");
-  innerTag.className = iconClass;
-  controller.appendChild(innerTag);
-  return controller;
+/**
+ * 음악을 Pause할 때 발생
+ */
+function pauseHandler() {
+  console.log("Excuted:", "pauseHandler");
+  // Pause에서 Play로 버튼 교체
+  const pauseBtn = getControllers()[2];
+  const new_playBtn = document.createElement("a");
+  new_playBtn.href = "#";
+  new_playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+  new_playBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    player.playVideo();
+  });
+  pauseBtn.parentNode.replaceChild(new_playBtn, pauseBtn);
 }
 
-function volumeControl(event) {
-  const elementID = event.target.parentNode.id;
+/**
+ * 볼륨을 높일 때 발생
+ */
+function volumeUpHandler() {
+  console.log("Excuted:", "volumeUpHandler");
+  if (player.getVolume() != 100) {
+    player.setVolume(player.getVolume() + 5);
+  }
+  displayVolumeState("volUp");
+}
 
-  if (document.querySelector("#volControlBox") != undefined) {
-    const temp = document.querySelector("#volControlBox");
-    temp.parentNode.removeChild(temp);
+/** 볼륨을 줄일 때 발생 */
+function volumeDownHandler() {
+  console.log("Excuted:", "volumeDownHandler");
+  if (player.getVolume() != 0) {
+    player.setVolume(player.getVolume() - 5);
+  }
+  displayVolumeState("volDown");
+}
+
+/**
+ * 볼륨 컨트롤 시 화면 중앙에 볼륨 상태를 나타냄
+ * @param {string} controlType "volUp" 또는 "volDown"
+ */
+function displayVolumeState(controlType) {
+  if (document.querySelector("#volBox") != undefined) {
+    const box = document.querySelector("#volBox");
+    box.parentNode.removeChild(box);
   }
 
   const box = document.createElement("div");
-  box.id = "volControlBox";
-  if (elementID == "shuffle_vol_up") {
-    player.setVolume(player.getVolume() + 5);
-    const volumeIcon = document.createElement("i");
-    volumeIcon.classList.add("fa-solid");
-    volumeIcon.classList.add("fa-volume-high");
-    box.appendChild(volumeIcon);
-  } else if (elementID == "shuffle_vol_down") {
-    player.setVolume(player.getVolume() - 5);
-    const volumeIcon = document.createElement("i");
-    volumeIcon.classList.add("fa-solid");
-    volumeIcon.classList.add("fa-volume-low");
-    box.appendChild(volumeIcon);
+  box.id = "volBox";
+  if (controlType == "volUp") {
+    const content = `<i class="fa-solid fa-volume-high"></i>`;
+    box.innerHTML = content;
+  } else if (controlType == "volDown") {
+    const content = `<i class="fa-solid fa-volume-low"></i>`;
+    box.innerHTML = content;
   }
 
-  const currentVol = document.createElement("div");
-  currentVol.style.width = `${150 * (player.getVolume() / 100)}px`;
-  box.appendChild(currentVol);
+  const volumeBar = document.createElement("div");
+  volumeBar.style.width = `${150 * (player.getVolume() / 100)}px`;
+  box.appendChild(volumeBar);
 
   document.body.appendChild(box);
 
@@ -183,3 +248,85 @@ function volumeControl(event) {
     if (box.parentNode != null) box.parentNode.removeChild(box);
   }, 2000);
 }
+
+/**
+ * 다음 음악 재생 버튼을 누르거나 음악이 끝날 시 발생
+ */
+function playNextHandler() {
+  console.log("Excuted:", "playNextHandler");
+  const playlist = player.playlist;
+  player.playingOrder++;
+  if (player.playingOrder > playlist.length - 1) {
+    player.playingOrder = 0;
+  }
+  player.loadVideoById(playlist[player.playingOrder], 0);
+}
+
+/**
+ * 이전 음악 재생 버튼을 누를 때 발생
+ */
+function playPrevHandler() {
+  console.log("Excuted:", "playPrevHandler");
+  const playlist = player.playlist;
+  player.playingOrder--;
+  if (player.playingOrder < 0) {
+    player.playingOrder = playlist.length - 1;
+  }
+  player.loadVideoById(playlist[player.playingOrder], 0);
+}
+
+/**
+ * <select id="playlist_selector"></select>에 자동으로 플레이리스트 목록 추가
+ * @param {string} musicDB Path of musicDB
+ */
+async function autoCreateThemeSelector(musicDB) {
+  const allPlaylists = await getPlaylistsAll(musicDB);
+  const themes = Object.keys(allPlaylists);
+  const playlistSelector = document.querySelector("#playlist_selector");
+
+  for (let i = 0; i < themes.length; i++) {
+    const theme = document.createElement("option");
+    theme.value = themes[i];
+    theme.innerText = themes[i];
+    playlistSelector.appendChild(theme);
+  }
+
+  playlistSelector.addEventListener("change", () => {
+    destroyPlayer();
+    createPlayer();
+  });
+}
+
+/**
+ * 재생 중인 영상의 제목을 반환
+ * @returns video's title
+ */
+function getVideoTitle() {
+  return player.getVideoData().title;
+}
+
+/**
+ * <div id="playing_title"></div> 영역에 제목 표시
+ */
+function displayTitle() {
+  const title = getVideoTitle();
+  const titleArea = document.querySelector("#playing_title");
+  titleArea.innerText = title;
+}
+
+/**
+ * <div id="playing_title"></div> 영역에 제목을 초기화
+ */
+function initTitle() {
+  const title = "재생 버튼을 클릭해주세요";
+  const titleArea = document.querySelector("#playing_title");
+  titleArea.innerText = title;
+}
+
+/**
+ * Main 함수
+ */
+(async function main() {
+  await autoCreateThemeSelector("db/shuffle_playlists.json");
+  loadYoutubeAPI();
+})();

@@ -50,29 +50,13 @@
           뭘 들을지 찾기도 귀찮다구요? <br />바로 Shuffle하세요!
 
           <div id="shuffle_player">
-            <div id="shuffle_genre">
-              <label for="shuffle_selector">장르</label>
-              <select name="genre" id="shuffle_selector">
-                <option value="lofi">lofi</option>
-                <option value="공부">공부</option>
-                <option value="재즈">재즈</option>
-                <option value="슬픔">슬픔</option>
-                <option value="집중">집중</option>
-                <option value="새벽">새벽</option>
-                <option value="신남">신남</option>
-                <option value="안정">안정</option>
-              </select>
+            <div id="playlist_selector_wrapper">
+              <label for="playlist_selector">Theme</label>
+              <select id="playlist_selector"></select>
             </div>
-            <!-- Hidden YouTube Player -->
             <div id="player"></div>
-            <!-- Music info -->
-            <div id="shuffle_title">재생 버튼을 누르세요</div>
-            <!-- YTplayer controllers -->
-            <a href="#" id="shuffle_vol_down"><i class="fa-solid fa-minus"></i></a>
-            <a href="#" id="shuffle_prev"><i class="fa-solid fa-backward-fast"></i></a>
-            <a href="#" id="shuffle_play"><i class="fa-solid fa-play"></i></a>
-            <a href="#" id="shuffle_next"><i class="fa-solid fa-forward-fast"></i></a>
-            <a href="#" id="shuffle_vol_up"><i class="fa-solid fa-plus"></i></a>
+            <div id="playing_title"></div>
+            <div id="controllers"></div>
           </div>
         </div>
         <div id="right">

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
 
 :root {
   --first-bg-color: #85586f;
@@ -9,7 +9,8 @@
 }
 
 body {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--fourth-bg-color);
@@ -53,6 +54,7 @@ body {
 
   #left {
     width: 260px;
+    height: 100%;
     float: left;
   }
 
@@ -69,7 +71,7 @@ body {
 /* Navigation */
 @keyframes nav_menu_open {
   0% {
-    margin-top: -237px;
+    margin-top: -200px;
   }
   100% {
     margin-top: 16px;
@@ -107,6 +109,8 @@ body {
   display: flex;
   animation-name: nav_menu_open;
   animation-duration: 0.8s;
+  -webkit-animation-name: nav_menu_open;
+  -webkit-animation-duration: 0.8s;
 }
 
 #nav_menu > li {
@@ -237,6 +241,18 @@ body {
   border: 1px solid black;
 }
 
+@keyframes volBox_close {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 #volBox {
   width: 180px;
   height: 150px;
@@ -249,6 +265,10 @@ body {
   left: 50%;
   top: 50%;
   text-align: center;
+  animation-name: volBox_close;
+  animation-duration: 2s;
+  -webkit-animation-name: volBox_close;
+  -webkit-animation-duration: 2s;
 }
 
 #volBox i {
@@ -262,4 +282,16 @@ body {
   border-radius: 4px;
   margin: 0 auto;
   background-color: black;
+}
+
+/* Playlists */
+.playlist_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 20px;
+}
+
+.playlist_item {
+  text-align: center;
 }

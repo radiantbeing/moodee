@@ -51,7 +51,7 @@ async function createPlayer() {
   initTitle();
 
   function onPlayerReady(event) {
-    event.target.setVolume(30);
+    // event.target.setVolume(30);
     createControllers();
   }
 

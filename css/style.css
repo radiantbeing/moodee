@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
+@import url("https://fonts.googleapis.com/css2?family=Nova+Round&display=swap");
 
 :root {
   --first-bg-color: #85586f;
@@ -97,6 +98,7 @@ body {
   text-decoration: none;
   color: black;
   margin: 0 16px;
+  font-family: "Nova Round", cursive;
 }
 
 #nav_menu {
@@ -294,4 +296,27 @@ body {
 
 .playlist_item {
   text-align: center;
+}
+
+/* About */
+#about_avatar {
+  width: 60%;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border: 1px solid black;
+}
+
+@media screen and (min-width: 940px) {
+  #about_avatar {
+    width: 30%;
+    margin-right: 20px;
+    display: inline;
+    border-radius: 50%;
+    border: 1px solid black;
+    float: left;
+  }
+  #about_content {
+  }
 }

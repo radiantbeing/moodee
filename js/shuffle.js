@@ -30,12 +30,15 @@ function onYouTubeIframeAPIReady() {
 async function createPlayer() {
   const theme = document.querySelector("#playlist_selector").value;
   const playlist = await getPlaylist(theme, "db/shuffle_playlists.json");
+  // shuffle(playlist);
 
   player = new YT.Player("player", {
     height: "360",
     width: "640",
     videoId: playlist[0],
-    playerVars: { controls: 0 }, // 컨트롤러 비활성화
+    playerVars: {
+      // controls: 0,
+    }, // 컨트롤러 비활성화
     events: {
       onReady: onPlayerReady,
       onStateChange: onPlayerStateChange,
@@ -51,7 +54,7 @@ async function createPlayer() {
   initTitle();
 
   function onPlayerReady(event) {
-    // event.target.setVolume(30);
+    event.target.setVolume(30);
     createControllers();
   }
 
@@ -87,6 +90,14 @@ async function getPlaylistsAll(musicDB) {
   const res = await fetch(musicDB);
   const data = await res.json();
   return data;
+}
+
+/**
+ * 매개변수로 입력된 Array를 무작위로 섞는다.
+ * @param {Array} array
+ */
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
 }
 
 /**

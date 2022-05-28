@@ -298,6 +298,13 @@ body {
   text-align: center;
 }
 
+.playlist_item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background-color: black;
+}
+
 /* About */
 #about_moodee {
   width: 60%;
@@ -319,11 +326,17 @@ body {
     display: inline;
     float: left;
   }
+
   #about_motto {
     clear: both;
     margin: 40px auto;
     font-size: 24px;
     font-style: italic;
     text-align: center;
+  }
+
+  .playlist_item img {
+    width: 100px;
+    height: 100px;
   }
 }

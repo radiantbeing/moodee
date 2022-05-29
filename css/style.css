@@ -193,7 +193,7 @@ body {
 
 /* Carousel */
 .carousel {
-  border: 1px solid var(--temp-border-color);
+  margin: 8px 0;
 }
 
 .carousel_img {

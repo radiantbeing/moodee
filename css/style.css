@@ -359,6 +359,10 @@ body {
     width: 100px;
     height: 100px;
   }
+  #check_me {
+    margin-top: 48px;
+    margin-bottom: 0;
+  }
 }
 
 /* About */
@@ -379,7 +383,7 @@ body {
 @media screen and (min-width: 940px) {
   #about_moodee {
     width: 35%;
-    margin-right: 20px;
+    margin-right: 40px;
     display: inline;
     float: left;
   }

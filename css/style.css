@@ -2,11 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nova+Round&display=swap");
 
 :root {
-  --first-bg-color: #85586f;
-  --second-bg-color: #ac7d88;
-  --third-bg-color: #deb6ab;
-  --fourth-bg-color: #f8ecd1;
-  --temp-border-color: #bcbcbc;
+  --primary-color: #222831;
+  --secondary-color: #393e46;
+  --tertiary-color: #00adb5;
+  --quaternary-color: #eeeeee;
+  --temp-border-color: #c9c9c9;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--fourth-bg-color);
+  background-color: var(--quaternary-color);
 }
 
 /* Layout */
@@ -22,7 +22,7 @@ body {
 .container {
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid var(--temp-border-color);
+  /* border: 1px solid var(--temp-border-color); */
 }
 
 #top {
@@ -53,6 +53,10 @@ body {
     width: 940px;
   }
 
+  #middle {
+    height: 640px;
+  }
+
   #left {
     width: 260px;
     height: 100%;
@@ -60,12 +64,16 @@ body {
   }
 
   #right {
+    height: 100%;
+    margin-bottom: 0;
     width: 580px;
     float: right;
   }
 
   #bottom {
     clear: both;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -83,15 +91,16 @@ body {
   display: flex;
   flex-direction: column;
   padding: 8px 20px;
-  background-color: var(--first-bg-color);
+  background-color: var(--primary-color);
   position: relative;
-  box-shadow: 1px 1px 1px var(--first-bg-color);
+  box-shadow: 1px 1px 1px var(--primary-color);
 }
 
 #nav_logo {
   display: flex;
   align-items: center;
   font-size: 24px;
+  color: var(--quaternary-color);
 }
 
 #nav_logo > a {
@@ -99,6 +108,7 @@ body {
   color: black;
   margin: 0 16px;
   font-family: "Nova Round", cursive;
+  color: var(--quaternary-color);
 }
 
 #nav_menu {
@@ -122,13 +132,13 @@ body {
 }
 
 #nav_menu > li:hover {
-  background-color: var(--second-bg-color);
+  background-color: var(--secondary-color);
   border-radius: 4px;
 }
 
 #nav_menu > li > a {
   text-decoration: none;
-  color: black;
+  color: var(--quaternary-color);
 }
 
 #nav_links {
@@ -149,6 +159,7 @@ body {
   text-decoration: none;
   color: black;
   font-size: 20px;
+  color: var(--quaternary-color);
 }
 
 #nav_toggle {
@@ -156,7 +167,7 @@ body {
   font-size: 24px;
   position: absolute;
   right: 20px;
-  color: black;
+  color: var(--quaternary-color);
 }
 
 @media screen and (min-width: 940px) {
@@ -198,7 +209,7 @@ body {
   }
 }
 .carousel_progress_bar {
-  background-color: var(--second-bg-color);
+  background-color: var(--tertiary-color);
   height: 8px;
   border-radius: 8px;
 }
@@ -208,7 +219,6 @@ body {
   /* display: none; */
   width: 100%;
   height: 50%;
-  margin: 0 auto;
 }
 
 #playlist_selector_wrapper {
@@ -286,8 +296,18 @@ body {
   background-color: black;
 }
 
-/* Playlists */
+@media screen and (min-width: 940px) {
+  #shuffle_player {
+    margin-top: 50px;
+  }
+  #player {
+    height: 280px;
+  }
+}
+
+/* Home-Playlists */
 .playlist_container {
+  margin: 16px 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -305,6 +325,42 @@ body {
   background-color: black;
 }
 
+/* Playlists */
+.playlists_table {
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.playlists_table tr {
+  border: 1px solid black;
+}
+
+.playlists_description {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#go_to_shuffle {
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+#check_me {
+  margin-top: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+@media screen and (min-width: 940px) {
+  .playlist_item img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 /* About */
 #about_moodee {
   width: 60%;
@@ -312,11 +368,12 @@ body {
   margin: 0 auto;
   margin-bottom: 20px;
 }
+
 #about_motto {
-  margin: 40px auto;
-  font-size: 24px;
-  font-style: italic;
+  clear: both;
   text-align: center;
+  margin: 60px 0;
+  font-size: 20px;
 }
 
 @media screen and (min-width: 940px) {
@@ -331,12 +388,65 @@ body {
     clear: both;
     margin: 40px auto;
     font-size: 24px;
-    font-style: italic;
     text-align: center;
   }
 
-  .playlist_item img {
-    width: 100px;
-    height: 100px;
+  #about_content {
+    padding: 30px 0;
+  }
+}
+
+/* Conversation */
+#conversation_header {
+  text-align: center;
+}
+#conversation_description {
+  text-align: center;
+  line-height: 24px;
+}
+
+/* Equipment */
+
+.equip_intro li {
+  line-height: 24px;
+}
+
+.equip_figure figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-style: italic;
+  color: grey;
+}
+
+.equip_img {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.equip_item p {
+  line-height: 24px;
+}
+
+@media screen and (min-width: 940px) {
+  .equip_intro {
+    padding: 0 64px;
+  }
+}
+
+/* Clock */
+#clock {
+  margin: 10px 0;
+  font-size: 32px;
+  text-align: center;
+}
+
+@media screen and (min-width: 940px) {
+  #clock {
+    display: flex;
+    margin: 0;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
   }
 }

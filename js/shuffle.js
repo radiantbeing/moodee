@@ -30,7 +30,7 @@ function onYouTubeIframeAPIReady() {
 async function createPlayer() {
   const theme = document.querySelector("#playlist_selector").value;
   const playlist = await getPlaylist(theme, "db/shuffle_playlists.json");
-  // shuffle(playlist);
+  shuffle(playlist);
 
   player = new YT.Player("player", {
     height: "360",

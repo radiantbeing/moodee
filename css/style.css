@@ -216,7 +216,6 @@ body {
 
 /* Shuffle */
 #player {
-  /* display: none; */
   width: 100%;
   height: 50%;
 }
@@ -243,6 +242,11 @@ body {
   color: black;
 }
 
+#controllers a:hover {
+  font-size: 24px;
+  color: var(--tertiary-color);
+}
+
 #controllers a:nth-child(3) {
   width: 80px;
   height: 80px;
@@ -251,6 +255,14 @@ body {
   text-align: center;
   font-size: 40px;
   border: 1px solid black;
+}
+
+#controllers a:nth-child(3):hover {
+  border-color: var(--tertiary-color);
+}
+
+#controllers a:nth-child(3) i {
+  margin-right: -5px;
 }
 
 @keyframes volBox_close {
@@ -314,8 +326,22 @@ body {
   row-gap: 20px;
 }
 
+.playlist_container a {
+  color: black;
+  text-decoration: none;
+}
+
+.playlist_container a:hover {
+  color: var(--tertiary-color);
+}
+
 .playlist_item {
   text-align: center;
+}
+
+.playlist_item a div {
+  margin-top: 4px;
+  font-size: 0.9em;
 }
 
 .playlist_item img {
@@ -337,6 +363,18 @@ body {
   border: 1px solid black;
 }
 
+.playlists_table tr:hover {
+  background-color: var(--temp-border-color);
+}
+
+.playlists_table td a {
+  color: black;
+}
+
+.playlists_table td a:hover {
+  color: var(--tertiary-color);
+}
+
 .playlists_description {
   display: block;
   margin-bottom: 8px;
@@ -348,10 +386,26 @@ body {
   text-align: center;
 }
 
+#go_to_shuffle a {
+  color: black;
+}
+
+#go_to_shuffle a:hover {
+  color: var(--tertiary-color);
+}
+
 #check_me {
   margin-top: 32px;
   margin-bottom: 12px;
   text-align: center;
+}
+
+#check_me a {
+  color: black;
+}
+
+#check_me a:hover {
+  color: var(--tertiary-color);
 }
 
 @media screen and (min-width: 940px) {
@@ -359,6 +413,11 @@ body {
     width: 100px;
     height: 100px;
   }
+
+  .playlist_item a div {
+    font-size: 1em;
+  }
+
   #check_me {
     margin-top: 48px;
     margin-bottom: 0;

@@ -8,11 +8,11 @@ function timeHandler() {
 
 function getTime() {
   const date = new Date();
-  let hours = date.getHours();
+  let hours = date.getHours().toString().padStart(2, "0");
   const dayTimeParser = parseDayTime(hours);
   const dayTime = dayTimeParser.daytime;
   hours = dayTimeParser.hours;
-  const minutes = date.getMinutes();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
   const seconds = date.getSeconds().toString().padStart(2, "0");
   return [dayTime, hours, minutes, seconds];
 }

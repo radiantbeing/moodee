@@ -37,11 +37,12 @@ async function createPlayer() {
     width: "640",
     videoId: playlist[0],
     playerVars: {
-      // controls: 0,
+      controls: 0,
     }, // 컨트롤러 비활성화
     events: {
       onReady: onPlayerReady,
       onStateChange: onPlayerStateChange,
+      onError: onPlayerError,
     },
   });
 
@@ -68,6 +69,10 @@ async function createPlayer() {
     if (event.data == YT.PlayerState.ENDED) {
       playNextHandler();
     }
+  }
+
+  function onPlayerError(event) {
+    if (event.data == 100 || event.data == 101 || event.data == 150) playNextHandler();
   }
 }
 

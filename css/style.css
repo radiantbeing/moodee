@@ -357,6 +357,7 @@ body {
   border: 1px solid black;
   text-align: center;
   border-collapse: collapse;
+  font-size: 0.8em;
 }
 
 .playlists_table tr {
@@ -408,6 +409,9 @@ body {
 }
 
 @media screen and (min-width: 940px) {
+  .playlists_table {
+    font-size: 1em;
+  }
   .playlist_item img {
     width: 100px;
     height: 100px;

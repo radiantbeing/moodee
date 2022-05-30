@@ -182,7 +182,6 @@ function getControllers() {
  *
  */
 function playHandler() {
-  console.log("Excuted:", "playHandler");
   // Play에서 Pause로 버튼 교체
   const playBtn = getControllers()[2];
   const new_pauseBtn = document.createElement("a");
@@ -201,7 +200,6 @@ function playHandler() {
  * 음악을 Pause할 때 발생
  */
 function pauseHandler() {
-  console.log("Excuted:", "pauseHandler");
   // Pause에서 Play로 버튼 교체
   const pauseBtn = getControllers()[2];
   const new_playBtn = document.createElement("a");
@@ -218,7 +216,6 @@ function pauseHandler() {
  * 볼륨을 높일 때 발생
  */
 function volumeUpHandler() {
-  console.log("Excuted:", "volumeUpHandler");
   if (player.getVolume() != 100) {
     player.setVolume(player.getVolume() + 5);
   }
@@ -227,7 +224,6 @@ function volumeUpHandler() {
 
 /** 볼륨을 줄일 때 발생 */
 function volumeDownHandler() {
-  console.log("Excuted:", "volumeDownHandler");
   if (player.getVolume() != 0) {
     player.setVolume(player.getVolume() - 5);
   }
@@ -269,7 +265,6 @@ function displayVolumeState(controlType) {
  * 다음 음악 재생 버튼을 누르거나 음악이 끝날 시 발생
  */
 function playNextHandler() {
-  console.log("Excuted:", "playNextHandler");
   const playlist = player.playlist;
   player.playingOrder++;
   if (player.playingOrder > playlist.length - 1) {
@@ -282,7 +277,6 @@ function playNextHandler() {
  * 이전 음악 재생 버튼을 누를 때 발생
  */
 function playPrevHandler() {
-  console.log("Excuted:", "playPrevHandler");
   const playlist = player.playlist;
   player.playingOrder--;
   if (player.playingOrder < 0) {

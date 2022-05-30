@@ -1,9 +1,3 @@
-<!-- TODO: 
-  * 공부 모드 timer
-  * ipod shuffle 형태로 플레이어 변경
-  * Youtube Error 발생시 자동 스킵
--->
-<!-- FIXME: 볼륨 조정 버그 수정-->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -14,7 +8,34 @@
     <link rel="mask-icon" href="imgs/logo.svg" color="#000000" />
     <link rel="apple-touch-icon" href="imgs/logo.svg" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      // Clock 구현
+      $(document).ready(function () {
+        setInterval(timeHandler, 1000);
 
+        function timeHandler() {
+          const timeArray = getTime();
+          $("#clock").html(`${timeArray[0]} ${timeArray[1]}:${timeArray[2]}:${timeArray[3]}`);
+        }
+
+        function getTime() {
+          const date = new Date();
+          let hours = date.getHours().toString().padStart(2, "0");
+          const dayTimeParser = parseDayTime(hours);
+          const dayTime = dayTimeParser.daytime;
+          hours = dayTimeParser.hours;
+          const minutes = date.getMinutes().toString().padStart(2, "0");
+          const seconds = date.getSeconds().toString().padStart(2, "0");
+          return [dayTime, hours, minutes, seconds];
+        }
+
+        function parseDayTime(hours) {
+          if (hours < 12) return { daytime: "AM", hours: hours };
+          else return { daytime: "PM", hours: hours % 12 };
+        }
+      });
+    </script>
     <title>MOODEE</title>
   </head>
   <body>
@@ -128,7 +149,6 @@
             <div id="check_me"><a href="./playlists.html">여기</a>에서 전체 플레이리스트를 확인하세요!</div>
           </div>
         </div>
-
         <div id="bottom">
           <div id="clock"></div>
           <div id="conversation">
@@ -138,7 +158,6 @@
         </div>
       </div>
     </section>
-
     <!-- FontAwesome API -->
     <script src="https://kit.fontawesome.com/7ca5696135.js" crossorigin="anonymous"></script>
     <!-- Personal APIs -->
@@ -147,6 +166,5 @@
     <script src="js/shuffle.js"></script>
     <script src="js/playlists.js"></script>
     <script src="js/conversation.js"></script>
-    <script src="js/clock.js"></script>
   </body>
 </html>

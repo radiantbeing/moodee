@@ -1,5 +1,9 @@
 # MOODEE
 
+<p align="center">
+<img src="sample_imgs/moodee.svg" alt="Playlists! sample image" width="200px">
+</p>
+
 MOODEE는 언제든지 일상의 배경음악이 되어줄 Playlist 모음집입니다.
 
 [Link#1](https://moodee.radia.me)
@@ -31,7 +35,9 @@ Shuffle!, Playlists!, Conversation은 홈 화면에서 즉시 접근 가능한 �
 
 ### Shuffle!
 
+<p align="center">
 <img src="sample_imgs/Shuffle!.PNG" alt="Shuffle! sample image" width="200px">
+</p>
 
 > Shuffle! 은 Playlist의 음악을 무작위로 Shuffle 하여 재생시키는 플레이어입니다.
 
@@ -43,13 +49,16 @@ Playlist의 끝까지 재생이 완료되면 Loop 하여 첫 곡부터 다시 �
 
 ### Playlists!
 
+<p align="center">
 <img src="sample_imgs/Playlists!.PNG" alt="Playlists! sample image" width="200px">
-
+</p>
 > Playlists!는 MOODEE에서 제공하는 Playlist들의 상세 정보를 확인할 수 있는 링크를 제공합니다.
 
 페이지가 로드될 때마다 각 Playlist 내의 음악 중 하나를 무작위로 선별하여 Playlist의 커버 이미지로 사용합니다.
 
+<p align="center">
 <img src="sample_imgs/Playlist_table.PNG" alt="Playlist Table sample image" width="200px">
+</p>
 
 이미지 또는 Playlist를 클릭 시, 선택한 Playlist의 세부사항이 정리된 표가 있는 페이지로 이동합니다.
 
@@ -59,7 +68,9 @@ Playlist의 끝까지 재생이 완료되면 Loop 하여 첫 곡부터 다시 �
 
 ### Conversation
 
+<p align="center">
 <img src="sample_imgs/Conversation.PNG" alt="Conversation sample image" width="200px">
+</p>
 
 > Conversation은 개발자가 사용자에게 전하고 싶은 메시지를 출력합니다.
 
@@ -71,7 +82,9 @@ Playlist의 끝까지 재생이 완료되면 Loop 하여 첫 곡부터 다시 �
 
 ### 음향장비 마이크로 블로그
 
+<p align="center">
 <img src="sample_imgs/Equipment.PNG" alt="Equipment sample image" width="200px">
+</p>
 
 > 음향장비 마이크로 블로그는 개발자가 사용하고 있는 음향장비를 소개하는 페이지입니다.
 
@@ -83,7 +96,9 @@ Playlist의 끝까지 재생이 완료되면 Loop 하여 첫 곡부터 다시 �
 
 ### About MOODEE
 
+<p align="center">
 <img src="sample_imgs/About.PNG" alt="About sample image" width="200px">
+</p>
 
 > About은 개발자 본인의 간단한 소개를 작성해놓은 페이지입니다.
 
@@ -99,10 +114,18 @@ MOODEE의 초기 로고와 함께 소개 글을 볼 수 있습니다.
 
 디바이스의 디스플레이 크기에 알맞는 최적화된 화면을 보여줍니다.
 
+<p align="center">
 <img src="sample_imgs/Desktop.PNG" alt="Desktop sample image" width="200px">
+  <p align="center">
+  데스크톱 환경의 MOODEE
+  </p>
+</p>
 
-데스크톱 환경의 MOODEE
+<br>
 
+<p align="center">
 <img src="sample_imgs/Mobile.PNG" alt="Mobile sample image" width="200px">
-
-모바일 환경의 MOODEE
+  <p align="center">
+  모바일 환경의 MOODEE
+  </p>
+</p>

@@ -261,7 +261,7 @@ body {
   border-color: var(--tertiary-color);
 }
 
-#controllers a:nth-child(3) i {
+#controllers a:nth-child(3) i.fa-play {
   margin-right: -5px;
 }
 

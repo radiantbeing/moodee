@@ -32,6 +32,7 @@
 
         function parseDayTime(hours) {
           if (hours < 12) return { daytime: "AM", hours: hours };
+          else if (hours == 12) return { daytime: "PM", hours: 12 };
           else return { daytime: "PM", hours: hours % 12 };
         }
       });
